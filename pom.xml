@@ -6,13 +6,13 @@
 
     <!-- Group and Artifact details -->
     <groupId>com.github</groupId>
-    <artifactId>maven</artifactId>
+    <artifactId>Factorial.java</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <!-- Project metadata -->
-    <name>Maven</name>
-    <url>https://github.com/vynavi/maven.git</url>
+    <name>Factorial.java</name>
+    <url>https://github.com/vynavi/maven/blob/main/Factorial.java</url>
 
     <!-- Define the properties section -->
     <properties>
