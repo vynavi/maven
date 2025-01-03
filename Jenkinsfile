@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         // Set JAVA_HOME to use the installed JDK for the build and SonarQube analysis
-        JAVA_HOME = tool name: 'JDK17', type: 'JDK'  
+        JAVA_HOME = tool name: 'JDK 17', type: 'JDK'  
     }
     
     tools {
