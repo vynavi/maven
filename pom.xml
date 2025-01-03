@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Group and Artifact details -->
-    <groupId>com.example</groupId>
-    <artifactId>my-project</artifactId>
+    <groupId>com.github</groupId>
+    <artifactId>maven</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <!-- Project metadata -->
-    <name>My Project</name>
-    <url>http://example.com</url>
+    <name>Maven</name>
+    <url>https://github.com/vynavi/maven.git</url>
 
     <!-- Define the properties section -->
     <properties>
