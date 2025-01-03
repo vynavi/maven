@@ -21,7 +21,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Build the project using Maven
-                sh 'mvn clean install'  // Adjust the build command based on your needs
+                bat 'mvn clean install'  // Use 'bat' for Windows instead of 'sh'
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
                 SONAR_TOKEN = credentials('sonar_token')  // Adjust with your SonarQube token credential ID
             }
             steps {
-                // Only for Windows systems, using the 'bat' command
+                // For Windows systems, use the 'bat' command
                 bat """
                     set PATH=%JAVA_HOME%\\bin;%PATH%
                     mvn clean verify sonar:sonar ^
