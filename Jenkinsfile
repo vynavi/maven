@@ -31,12 +31,13 @@ pipeline {
                 SONAR_TOKEN = credentials('sonar_token')  // Adjust with your SonarQube token credential ID
             }
             steps {
-                // Run SonarQube analysis with Maven
-                sh '''
-                mvn sonar:sonar \
-                -Dsonar.projectKey=your_project_key \
-                -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.token=$SONAR_TOKEN
+                bat '''
+                set PATH=%JAVA_HOME%;%PATH%
+                mvn clean verify sonar:sonar \ ^
+  -Dsonar.projectKey=maven \ ^
+  -Dsonar.projectName='maven' \ ^
+  -Dsonar.host.url=http://localhost:9000 \ ^
+  -Dsonar.token=sqp_48085db02c22f4ee8dea86eb85a20098149a4b27
                 '''
             }
         }
