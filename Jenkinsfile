@@ -3,13 +3,12 @@ pipeline {
     
     environment {
         // Set JAVA_HOME to use the installed JDK for the build and SonarQube analysis
-        JAVA_HOME = tool name: 'JDK 17', type: 'JDK'  
+        JAVA_HOME = 'C:/Program Files/Java/jdk-17;C:/Program Files/Java/jdk-17/bin'
     }
     
     tools {
         // Use the Maven installation defined in Jenkins
         maven 'Maven Default'  
-        jdk 'JDK 17'
     }
 
     stages {
@@ -32,29 +31,15 @@ pipeline {
                 SONAR_TOKEN = credentials('sonar_token')  // Adjust with your SonarQube token credential ID
             }
             steps {
-                script {
-                    if (isUnix()) {
-                        // For Unix systems (Linux/macOS), set JAVA_HOME properly
-                        sh """
-                            export PATH=\$JAVA_HOME/bin:\$PATH
-                            mvn clean verify sonar:sonar \
-                                -Dsonar.projectKey=maven \
-                                -Dsonar.projectName='maven' \
-                                -Dsonar.host.url=http://localhost:9000 \
-                                -Dsonar.login=${SONAR_TOKEN}
-                        """
-                    } else {
-                        // For Windows systems, use the 'bat' command
-                        bat """
-                            set PATH=%JAVA_HOME%\\bin;%PATH%
-                            mvn clean verify sonar:sonar ^
-                                -Dsonar.projectKey=maven ^
-                                -Dsonar.projectName=maven ^
-                                -Dsonar.host.url=http://localhost:9000 ^
-                                -Dsonar.login=%SONAR_TOKEN%
-                        """
-                    }
-                }
+                // Only for Windows systems, using the 'bat' command
+                bat """
+                    set PATH=%JAVA_HOME%\\bin;%PATH%
+                    mvn clean verify sonar:sonar ^
+                        -Dsonar.projectKey=maven ^
+                        -Dsonar.projectName=maven ^
+                        -Dsonar.host.url=http://localhost:9000 ^
+                        -Dsonar.login=%SONAR_TOKEN%
+                """
             }
         }
     }
