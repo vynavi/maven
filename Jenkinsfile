@@ -3,7 +3,9 @@ pipeline {
     
     environment {
         // Set JAVA_HOME to use the installed JDK for the build and SonarQube analysis
-        JAVA_HOME = 'C:/Program Files/Java/jdk-17;C:/Program Files/Java/jdk-17/bin'
+        //JAVA_HOME = 'C:/Program Files/Java/jdk-17;C:/Program Files/Java/jdk-17/bin'
+        JAVA_HOME = 'C:/Program Files/Java/jdk-11.0.10'  // Set your JDK path here
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
     
     tools {
