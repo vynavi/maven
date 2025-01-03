@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         // Set JAVA_HOME to use the installed JDK for the build and SonarQube analysis
-        JAVA_HOME = tool name: 'JDK 11', type: 'JDK'  
+        JAVA_HOME = tool name: 'JDK 17', type: 'JDK'  
     }
     
     tools {
@@ -31,14 +31,29 @@ pipeline {
                 SONAR_TOKEN = credentials('sonar_token')  // Adjust with your SonarQube token credential ID
             }
             steps {
-                bat '''
-                set PATH=%JAVA_HOME%;%PATH%
-                mvn clean verify sonar:sonar \ ^
-  -Dsonar.projectKey=maven \ ^
-  -Dsonar.projectName='maven' \ ^
-  -Dsonar.host.url=http://localhost:9000 \ ^
-  -Dsonar.token=sqp_48085db02c22f4ee8dea86eb85a20098149a4b27
-                '''
+                script {
+                    if (isUnix()) {
+                        // For Unix systems (Linux/macOS), set JAVA_HOME properly
+                        sh """
+                            export PATH=\$JAVA_HOME/bin:\$PATH
+                            mvn clean verify sonar:sonar \
+                                -Dsonar.projectKey=maven \
+                                -Dsonar.projectName='maven' \
+                                -Dsonar.host.url=http://localhost:9000 \
+                                -Dsonar.login=${SONAR_TOKEN}
+                        """
+                    } else {
+                        // For Windows systems, use the 'bat' command
+                        bat """
+                            set PATH=%JAVA_HOME%\\bin;%PATH%
+                            mvn clean verify sonar:sonar ^
+                                -Dsonar.projectKey=maven ^
+                                -Dsonar.projectName=maven ^
+                                -Dsonar.host.url=http://localhost:9000 ^
+                                -Dsonar.login=%SONAR_TOKEN%
+                        """
+                    }
+                }
             }
         }
     }
